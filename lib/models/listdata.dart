@@ -1,11 +1,12 @@
 class ListData {
-  String image;
-  String title;
-  String description;
+  final String titre;
+  final String artiste;
+  final String picture;
+  final String preview;
 
   ListData({
-    required this.image,
-    required this.title,
-    required this.description
-  });
+    required this.titre, 
+    required this.artiste, 
+    required this.picture, 
+    required this.preview});
 }

@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
 
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 5), () {
       setState(() {
         showScrenn = false;
       });
