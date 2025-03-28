@@ -1,37 +1,25 @@
-import 'dart:async';
-
-import 'package:animationtest/list.dart';
-import 'package:animationtest/screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:animationtest/theme/theme_provider.dart';
+import 'package:animationtest/theme/theme.dart' show AppTheme;
+import 'package:animationtest/setting.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatefulWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appTheme = ref.watch(appThemeState); // Écoute l'état du thème
 
-class _MyAppState extends State<MyApp> {
-
-  bool showScrenn = true;
-
-  void initState() {
-    super.initState();
-    Timer(const Duration(seconds: 5), () {
-      setState(() {
-        showScrenn = false;
-      });
-    });
-  }
-  @override
-  Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: showScrenn ? Screen() : ListScreen()
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: appTheme.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      home: Setting(
+        toggletheme: appTheme.toggleTheme, 
+        isDark: appTheme.isDarkMode,
+      ), // Utiliser Setting pour tester
     );
   }
 }

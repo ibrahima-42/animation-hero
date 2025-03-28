@@ -1,3 +1,4 @@
+import 'package:animationtest/setting.dart';
 import 'package:flutter/material.dart';
 
 class MyDrawer extends StatelessWidget {
@@ -47,7 +48,7 @@ class MyDrawer extends StatelessWidget {
               leading: Icon(Icons.settings),
               title: Text('Parametre'),
               onTap: (){
-                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => Setting(toggletheme: (bool value) {  }, isDark: false,)));
               },
             ),
           ),

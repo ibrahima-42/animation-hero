@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class Screen extends StatefulWidget {
-  const Screen({super.key});
+  final void Function(bool value) toggletheme;
+  final bool isDark;
+  const Screen({super.key, required this.toggletheme, required this.isDark});
 
   @override
   _ScreenState createState() => _ScreenState();
