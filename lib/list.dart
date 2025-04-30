@@ -1,5 +1,6 @@
 import 'package:animationtest/components/mydrawer.dart';
 import 'package:animationtest/detail.dart';
+import 'package:animationtest/preview.dart';
 import 'package:flutter/material.dart';
 import 'package:animationtest/models/listdata.dart';
 import 'package:animationtest/services/musique.dart';
@@ -23,10 +24,10 @@ class _ListScreenState extends State<ListScreen> {
   // ✅ Correction de la fonction pour éviter l'erreur de récursion
  Future<void> fetchMusiqueList() async {
   try {
-    List<ListData> data = (await getMusique()) as List<ListData>; // Appelle la fonction du service
+    List<ListData> data = await getMusique() as List<ListData>; // Appelle la fonction du service
     if (data.isEmpty) {
       print("Aucune musique trouvée.");
-    } else {
+  } else {
       print("Musiques récupérées : ${data.length}");
     }
     setState(() {
@@ -43,8 +44,8 @@ class _ListScreenState extends State<ListScreen> {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Colors.white),
-        title: const Text('List', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.blueAccent,
+        title: const Text('Musique', style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.black,
       ),
       drawer: MyDrawer(),
       body: list.isEmpty
@@ -53,25 +54,20 @@ class _ListScreenState extends State<ListScreen> {
               itemCount: list.length,
               itemBuilder: (context, index) {
                 var item = list[index];
-                return ListTile(
-                  leading: Hero(
-                    tag: item.titre, // Correction : utiliser item.titre et non item.Titre
-                    child: Image.network(
-                      item.picture, // Correction : utiliser item.image et non item.Image
-                      width: 100,
-                      height: 220,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  title: Text(
-                    item.titre,
-                    style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                  ),
-                  // subtitle: Text(item.description),
-                  onTap: () {
-                    
-                  },
+                return Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child:ListTile(
+                    leading: Image.network(item.picture),
+                    title: Hero(
+                      tag: item.title,
+                      child:  Text(item.title)),
+                    subtitle: Text(item.artist),
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => Preview(item: item)));
+                    },
+                  )
                 );
+              
               },
             ),
     );

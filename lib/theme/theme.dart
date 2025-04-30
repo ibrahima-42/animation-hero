@@ -21,6 +21,7 @@ class AppTheme {
     scaffoldBackgroundColor: const Color.fromARGB(255, 104, 103, 103),
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.black,
+      color: Colors.white,
       iconTheme: const IconThemeData(color: Colors.white),
       centerTitle: true,
     ),
